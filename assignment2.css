@@ -1,0 +1,30 @@
+body{
+    background-color: rgb(229, 188, 153);
+}
+
+
+#main-nav{
+    background-color: rgb(185, 85, 4);
+    text-align: center;
+}
+
+#main-nav li{
+    display: inline-block;
+    position: relative;
+}
+
+#main-nav li:hover{       
+    background-color: #78b23b;
+    color: white;
+
+}
+
+#main-nav ul ul{
+    display: none;
+    position: absolute;
+}
+
+#main-nav ul li{
+    padding: 10px;
+
+}

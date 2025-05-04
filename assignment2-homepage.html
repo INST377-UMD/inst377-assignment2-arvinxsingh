@@ -1,0 +1,124 @@
+<html>
+<head>
+  <title>INST 377 - Assignment 2</title>
+  <link rel="stylesheet" href="assignment2.css">
+</head>
+<body id="backgroundColor"> 
+  <header>
+    <h1>INST377 - Activities</h1>
+
+    <!-- Navigation Element-->
+    <nav id="mainNavigation">
+        <ul>    
+            <li><a href="assignment2-homepage.html">Home</a></li>
+            <li><a href="assignment2-stockspage.html">Stocks</a></li>
+            <li><a href="assignment2-dogspage.html">Dogs</a></li>
+        </ul>
+    </nav>
+    <h1>These are some different activities we can try!</h1>
+
+    <nav class="navigationLower"> 
+      <ul>
+        <li><a href="assignment2-stockspage.html" class="button-85">Stocks</a></li>
+        <li><a href="assignment2-dogspage.html" class="button-85">Dogs</a></li>
+      </ul>
+    </nav>
+  </header>
+  <br>
+
+  <div id="quoteBox"> 
+    <p id="quoteMessage"></p> 
+    <p id="quoteSayer"></p>  
+  </div>
+
+  <!-- Audio Componet  -->
+  <div id="audioControl">
+    <h2>In this web page there are options to Navigate using Audio!</h2>
+    <p>Ensure your Mic is enabled to be able to use this feature</p>
+    <br>
+    <ul>
+      <li>- Navigate to differnt pages, Say "Navigate to (page)"</li>
+      <li>- Change background page color, Say "Chnage the color to (color)"</li>
+      <li>- To say hello back to you, Say "Hello"</li>
+    </ul>
+    <button id="buttonON">Turn On Listening</button>
+    <button id="buttonOFF" disabled>Turn Off Listening</button> 
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+  
+  <script>
+    const randomQuotes = async () => {
+      try {
+        const response = await fetch('https://zenquotes.io/api/random');
+        const data = await response.json();
+        const quote = data[0].q;  
+        const author = data[0].a;  
+    
+        const quoteElement = document.getElementById('quoteMessage');
+        const authorElement = document.getElementById('quoteSayer');
+    
+        quoteElement.textContent = `"${quote}"`;
+        authorElement.textContent = `— ${author}`;
+      } catch (error) {
+        console.error('Error getting quote:', error);
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', randomQuotes);
+
+    let isAudioOn = false;
+
+    function startAudioListen() {
+      if (annyang) {
+        const commands = {
+          'hello': () => alert('Hello World!'),
+          'change the color to *color': (color) => document.body.style.backgroundColor = color,
+          'navigate to *page': (page) => {
+            if (page.toLowerCase() === 'home') {
+              window.location.href = 'assignment2-homepage.html';
+            } else if (page.toLowerCase() === 'stocks') {
+              window.location.href = 'assignment2-stockspage.html';
+            } else if (page.toLowerCase() === 'dogs') {
+              window.location.href = 'assignment2-dogspage.html';
+            }
+          }
+        };
+
+        annyang.addCommands(commands);
+        annyang.start();
+
+        document.getElementById('buttonON').disabled = true;  
+        document.getElementById('buttonOFF').disabled = false;
+      }
+    }
+
+    function stopAudiolisten() {
+      if (annyang) {
+        annyang.abort();
+        document.getElementById('buttonON').disabled = false;
+        document.getElementById('buttonOFF').disabled = true;
+      }
+    }
+
+    document.getElementById('buttonON').addEventListener('click', startAudioListen);
+    document.getElementById('buttonOFF').addEventListener('click', stopAudiolisten);
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

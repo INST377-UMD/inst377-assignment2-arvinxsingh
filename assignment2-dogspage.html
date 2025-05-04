@@ -1,0 +1,211 @@
+<html>
+<head>
+  <title>INST 377 - Assignment 2</title>
+  <link rel="stylesheet" href="assignment2.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+</head>
+<body id="backgroundColor">
+  <header>
+    <h1>INST377 - Doggos</h1>
+
+    <!-- Navigation Element-->
+    <nav id="mainNavigation"> 
+        <ul>    
+            <li><a href="assignment2-homepage.html">Home</a></li>
+            <li><a href="assignment2-stockspage.html">Stocks</a></li>
+            <li><a href="assignment2-dogspage.html">Dogs</a></li>
+        </ul>
+    </nav>
+    <h1>Doggos! &#128021;</h1>
+  </header>
+
+  <div id="dogSlider" class="carouselcontainer" data-simple-slider></div>
+
+  <div class="carouselcontrols">
+    <button id="nextButton">Next</button>
+    <button id="backButton">Back</button>
+  </div>
+
+  <main>
+    <div id="dogButtons" class="buttonscontainer"></div>
+
+    <div id="dogInformations" class="doginformations" style="display: none;">
+      <h2 id="dogBreedName">Breed name:</h2>
+      <p id="dogBreedDescription">Description of breed:</p>
+      <p id="dogMinLife">Min life:</p>
+      <p id="dogMaxLife">Max life:</p>
+    </div>
+  </main>
+
+    <!-- Audio Componet  -->
+  <div id="audiocontrol">
+    <h2>In this web page there are options to Navigate using Audio!</h2>
+    <p>Ensure your Mic is enabled to be able to use this feature</p>
+    <br>
+    <ul>
+      <li>- Navigate to differnt pages, Say "Navigate to (page)"</li>
+      <li>- Change background page color, Say "Chnage the color to (color)"</li>
+      <li>- To say hello back to you, Say "Hello"</li>
+    </ul>
+    <button id="buttonON">Turn On Listening</button>
+    <button id="buttonOFF" disabled>Turn Off Listening</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
+  <script>
+    const dogApiUrl = 'https://dogapi.dog/api/v2/breeds';
+    const randomDogApiUrl = 'https://dog.ceo/api/breeds/image/random';
+    let slider;
+  
+    const getDogBreed = async () => {
+      try {
+        const response = await fetch(dogApiUrl);
+        const data = await response.json();
+        const breeds = data.data;
+        const buttonsContainer = document.getElementById('dogButtons');
+  
+        breeds.forEach(breed => {
+          const button = document.createElement('button');
+          button.textContent = breed.attributes.name;
+          button.setAttribute('dataid', breed.id);
+          button.addEventListener('click', () => showDogInfo(breed.id));
+          buttonsContainer.appendChild(button);
+        });
+      } catch (error) {
+        console.error('Error getting dog breeds:', error);
+      }
+    };
+  
+    const dogImages = async () => {
+      try {
+        const imageContainer = document.getElementById('dogSlider');
+        const imagePromises = [];
+  
+        for (let i = 0; i < 10; i++) {
+          imagePromises.push(fetch(randomDogApiUrl).then(response => response.json()));
+        }
+  
+        const images = await Promise.all(imagePromises);
+        imageContainer.innerHTML = '';
+  
+        images.forEach(imageData => {
+          const img = document.createElement('img');
+          img.src = imageData.message;
+          img.alt = 'Random Dog';
+          img.classList.add('carouselimage');
+          imageContainer.appendChild(img);
+        });
+  
+        if (images.length > 0) {
+          slider = simpleslider.getSlider({
+            container: imageContainer,
+            paused: true
+          });
+        }
+      } catch (error) {
+        console.error('Error getting dog images:', error);
+      }
+    };
+  
+    const showDogInfo = async (id) => {
+      try {
+        const response = await fetch(`${dogApiUrl}/${id}`);
+        const data = await response.json();
+        const breed = data.data.attributes;
+  
+        document.getElementById('dogBreedName').textContent = breed.name || 'Unknown Breed';
+        document.getElementById('dogBreedDescription').textContent = breed.description || 'No description available.';
+  
+        const minLife = breed.life?.min ?? 'N/A';
+        const maxLife = breed.life?.max ?? 'N/A';
+  
+        document.getElementById('dogMinLife').textContent = `Min Life: ${minLife} years`;
+        document.getElementById('dogMaxLife').textContent = `Max Life: ${maxLife} years`;
+  
+        document.getElementById('dogInformations').style.display = 'block';
+      } catch (error) {
+        console.error('Error getting dogs information:', error);
+      }
+    };
+  
+    const nextSlide = () => {
+      if (slider) slider.next();
+    };
+  
+    const backSlide = () => {
+      if (slider) slider.prev();
+    };
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      getDogBreed();
+      dogImages();
+  
+      document.getElementById('nextButton').addEventListener('click', nextSlide);
+      document.getElementById('backButton').addEventListener('click', backSlide);
+  
+      if (annyang) {
+        const commands = {
+          'hello': () => alert('Hello World!'),
+          'change the color to *color': (color) => {
+            document.body.style.backgroundColor = color;
+          },
+          'navigate to *page': (page) => {
+            const pageLower = page.toLowerCase();
+            if (pageLower === 'home') {
+              window.location.href = 'assignment2-homepage.html';
+            } else if (pageLower === 'stocks') {
+              window.location.href = 'assignment2-stockspage.html';
+            }
+          },
+          'load dog breed *breed': (breedName) => {
+            const buttons = document.getElementById('dogButtons').getElementsByTagName('button');
+            for (let button of buttons) {
+              if (button.textContent.toLowerCase() === breedName.toLowerCase()) {
+                button.click();
+                break;
+              }
+            }
+          },
+          'show a dog': () => dogImages(),
+          'list breeds': () => getDogBreed()
+        };
+  
+        annyang.addCommands(commands);
+  
+        document.getElementById('turnonaudio').addEventListener('click', () => {
+          console.log('Audio commands active');
+          annyang.start();
+        });
+  
+        document.getElementById('turnoffaudio').addEventListener('click', () => {
+          console.log('Audio command not active');
+          annyang.abort();
+        });
+  
+      } else {
+        console.error('Annyang not available');
+      }
+    });
+  </script>
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

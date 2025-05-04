@@ -1,30 +1,352 @@
-body{
-    background-color: rgb(229, 188, 153);
+
+  #backgroundColor {
+    background-color: rgb(229,188,153);
+  }
+  
+  body {
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  header {
+    margin-top: 10px;
+  }
+
+  /* Audio controls */
+  #audioControl {
+    position: relative; 
+    background-color: #4f955c;
+    padding: 15px;
+    border-top: 2px solid #000000;
+    text-align: center;
+    width: 75%; 
+    margin: 20px auto 0 auto;    
+  }
+    #audioControl h2 {
+    margin-bottom: 10px;
+  }
+  
+  #audioControl ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #audioControl ul li {
+    margin-bottom: 10px;
+  }
+  
+  #audioControl button {
+    padding: 10px 20px;
+    background-color: #64d067;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+  }
+  
+  #audioControl button:disabled {
+    background-color: #979797;
+  }
+  
+  #dogButtons, #stockData {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgb(119, 57, 57);
+    border-radius: 8px;
+  }
+  
+  button, input {
+    padding: 8px;
+    font-size: 16px;
+    margin: 5px;
+  }
+  
+  #dogButtons button {
+    background-color: #73cd76;
+    color: white;
+    border: none;
+  }
+  
+  #dogButtons button:hover {
+    background-color: #495a4a;
+  }
+
+  #dogInformations {
+    display: inline-block;
+    background-color: rgb(211, 244, 244);
+    border: solid; color: black;
+    padding: 15px;
+    margin-left: 13%;
+    margin-top: 10px;
+    width: 70%;
+    text-align: left;
+  }
+
+  body {
+    background-color: #f4f4f9;
+    text-align: center;
+    margin-top: 50px;
+}
+/* Qutoes */
+
+#quoteBox {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#quoteMessage {
+    font-weight: bold;
+    color: #af3838;
+}
+
+#quoteSayer {
+    color: #000000;
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #5c6bc0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* Navigation section */
+#mainNavigation{
+    background-color: rgb(185,85,4);
+    text-align: center;
+    margin: 5px;
+}
+
+#mainNavigation li:hover{
+    background-color: rgb(240, 45, 6);
+
+}
+
+#mainNavigation li a{
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
 }
 
 
-#main-nav{
-    background-color: rgb(185, 85, 4);
+#mainNavigation ul li{
+    list-style-type: none;
+    display: inline-block;
+    padding: 10px;
     text-align: center;
 }
 
-#main-nav li{
-    display: inline-block;
-    position: relative;
-}
-
-#main-nav li:hover{       
-    background-color: #78b23b;
-    color: white;
-
-}
-
-#main-nav ul ul{
+#mainNavigation ul ul {
     display: none;
     position: absolute;
+    text-decoration: none;
 }
 
-#main-nav ul li{
+.navigationLower ul {
+    list-style-type: none;
+    padding: 15px; 
+}
+
+.navigationLower ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.lnavigationLower ul li a {
+    text-decoration: none;
+    color: #000;
+    display: inline-block; 
+}
+
+
+/* Carousel section */
+.carouselcontainer {
+    position: relative;
+    width: 1300px;  
+    height: 600px; 
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 60px; 
+      
+  }
+
+  .carouselcontainer img {
+    width: 100%;   
+    height: 100%;   
+  }
+  
+  .carouselimage {
+    display: block; 
+  }
+  
+.sentimenticon {
+    width: 60px; 
+    height: 60px; 
+    vertical-align: middle; 
+  }
+  
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  
+  .inputBox {
+    width: 300px;
+    margin: 10px auto;
     padding: 10px;
 
+    border-radius: 8px;
+    float: left;
+  }
+  
+  .inputBox h2 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .inputBox input, .input-container button, .input-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  input:focus, button:focus, select:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  button {
+    background-color: #000000;
+    color: white;
+  }
+  
+  button:hover {
+    background-color: #767e86;
+  }
+  
+  select {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  #chartcontainer {
+    margin: 10px auto;
+  }
+  
+  /* Reddit Stocks */
+  #redditStocksBox {
+    margin-top: 120px;
+    float: left;
+  }
+  
+  #redditStocks {
+    width: 50%;
+    float: left;
+    border-collapse: collapse;
+  }
+  
+  #redditStocks th, #redditStocks td {
+    padding: 10px;
+    border: 1.5px solid #000000;
+    text-align: left;
+  }
+  
+  #redditStocksBox th {
+    background-color: #e97676;
+  }
+  
+  
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    margin: 0; 
+  }
+  
+  main {
+    flex: 1; 
+  }
+
+
+/* Rainbow color changing button very cool */
+.button-85 {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
+
+.button-85:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.button-85:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+
+
+
+

@@ -5,3 +5,5 @@
 
 # Comments: 
 Start with the home page
+- Navigate using audio works mainly on home page, but funcational overall 
+- 
